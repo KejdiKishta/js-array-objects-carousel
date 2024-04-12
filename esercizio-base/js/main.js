@@ -99,8 +99,12 @@ function nextImg () {
   //* tolgo active alla prima immagine
   carouselSlide[carouselIndex].classList.remove("active");
 
-  //* incremento
-  carouselIndex++;
+  //* incremento con condizioni per tornare all'inizio
+  if (carouselIndex < images.length - 1) {
+    carouselIndex++;
+  } else {
+    carouselIndex = 0;
+  }
 
   //*aggiungo active alla successiva
   carouselSlide[carouselIndex].classList.add("active");
@@ -114,9 +118,16 @@ function previousImg() {
   //* tolgo active al'immagine corrente
   carouselSlide[carouselIndex].classList.remove("active");
 
-  //* decremento
-  carouselIndex--;
+  //* decremento cpn condizioni per tornare alla fine
+  if (carouselIndex > 0) {
+    carouselIndex--;
+  } else {
+    carouselIndex = images.length - 1;
+  }
 
   //* aggiungo active alla precedente
   carouselSlide[carouselIndex].classList.add("active");
-}
+};
+
+// Milestone 2:
+// Aggiungere il **ciclo infinito** del carosello. Ovvero se la miniatura attiva è la prima e l'utente clicca la freccia verso destra, la miniatura che deve attivarsi sarà l'ultima e viceversa per l'ultima miniatura se l'utente clicca la freccia verso sinistra.
