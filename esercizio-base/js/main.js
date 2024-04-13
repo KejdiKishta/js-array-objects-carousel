@@ -42,9 +42,6 @@ const images = [
 // BONUS 3:
 // Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.
 
-
-//? milestone 1:
-
 //* ciclo di stampa
 for (let i = 0; i < images.length; i++) {
   const element = images[i];
@@ -129,5 +126,56 @@ function previousImg() {
   carouselSlide[carouselIndex].classList.add("active");
 };
 
-// Milestone 2:
-// Aggiungere il **ciclo infinito** del carosello. Ovvero se la miniatura attiva è la prima e l'utente clicca la freccia verso destra, la miniatura che deve attivarsi sarà l'ultima e viceversa per l'ultima miniatura se l'utente clicca la freccia verso sinistra.
+// BONUS 1:
+// Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente.
+
+//* ciclo for di controllo
+for (let i = 0; i < images.length; i++) {
+  const element = images[i];
+
+}
+
+// BONUS 2:
+// Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva.
+
+let autoChange = document.querySelector("#my-stop-button")
+//* contatore di click
+let click = 1;
+//* flag che cambia ad ogni click
+let flag = false;
+//* nome varibile con intervallo
+let interval;
+autoChange.addEventListener("click", autoBtn);
+
+//*funzione attiva/disattiva
+function autoBtn() {
+  click++;
+  //* cambio flag ad ogni click
+  if (click % 2 === 0) {
+    flag = true;
+    } else {
+    flag = false
+  }
+  console.log(flag);
+
+  //* condizione di creazione e eliminazione intervallo
+  if (flag === true){
+    //* intervallo con funzione di scorrimento
+    interval = setInterval(() => {
+    //* tolgo active alla prima immagine
+    carouselSlide[carouselIndex].classList.remove("active");
+  
+    //* incremento
+    if (carouselIndex < images.length - 1) {
+      carouselIndex++;
+    } else {
+      carouselIndex = 0;
+    }
+    
+    //*aggiungo active alla successiva
+    carouselSlide[carouselIndex].classList.add("active");
+    }, 3000);
+  } else {
+    clearInterval(interval);
+  }
+}
