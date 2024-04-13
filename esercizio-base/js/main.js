@@ -84,9 +84,14 @@ for (let i = 0; i < images.length; i++) {
 //* attivazione della prima slide
 let carouselSlide = document.querySelectorAll(".my-carousel-item");
 console.log(carouselSlide);
+
+let carouselThumbnail = document.querySelectorAll(".my-thumbnail");
+console.log(carouselThumbnail);
+
 let carouselIndex = 0;
 
 carouselSlide[carouselIndex].classList.add("active");
+carouselThumbnail[carouselIndex].classList.add("active")
 
 //* event listener freccia destra
 let arrowR = document.querySelector(".my-next");
@@ -95,6 +100,7 @@ arrowR.addEventListener("click", nextImg);
 function nextImg () {
   //* tolgo active alla prima immagine
   carouselSlide[carouselIndex].classList.remove("active");
+  carouselThumbnail[carouselIndex].classList.remove("active")
 
   //* incremento con condizioni per tornare all'inizio
   if (carouselIndex < images.length - 1) {
@@ -105,6 +111,7 @@ function nextImg () {
 
   //*aggiungo active alla successiva
   carouselSlide[carouselIndex].classList.add("active");
+  carouselThumbnail[carouselIndex].classList.add("active");  
 }
 
 //* event listener freccia sinistra
@@ -114,6 +121,7 @@ arrowL.addEventListener("click", previousImg);
 function previousImg() {
   //* tolgo active al'immagine corrente
   carouselSlide[carouselIndex].classList.remove("active");
+  carouselThumbnail[carouselIndex].classList.remove("active")
 
   //* decremento cpn condizioni per tornare alla fine
   if (carouselIndex > 0) {
@@ -124,15 +132,27 @@ function previousImg() {
 
   //* aggiungo active alla precedente
   carouselSlide[carouselIndex].classList.add("active");
+  carouselThumbnail[carouselIndex].classList.add("active");  
 };
 
 // BONUS 1:
 // Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente.
 
-//* ciclo for di controllo
-for (let i = 0; i < images.length; i++) {
-  const element = images[i];
+//* ciclo per aggiungere event listener
+for (let i = 0; i < carouselThumbnail.length; i++) {
+  const element = carouselThumbnail[i];
+  element.addEventListener("click", () => {
+    //* tolgo active all'img corrente
+    carouselSlide[carouselIndex].classList.remove("active");
+    carouselThumbnail[carouselIndex].classList.remove("active");
 
+    //* trasformo l'indice del carousel nell'indice della thumnail cliccata
+    carouselIndex = i
+
+    //* aggiungo active al nuovo indice
+    carouselSlide[carouselIndex].classList.add("active");
+    carouselThumbnail[carouselIndex].classList.add("active");
+  })
 }
 
 // BONUS 2:
